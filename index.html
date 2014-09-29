@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Game of Life</title>
+    <link rel="stylesheet" href="life_game.css" />
+    <meta charset="utf-8" />
+  </head>
+  <body>    
+    <canvas id="main_canvas" height="500" width="500"  style="margin:30px;" onclick="click_canvas(event)"></canvas>    
+    <div style = "margin-left:30px;">
+      高度(最大高度为100)：<input type="text" id="height"></input></br>
+      宽度(最大宽度为100)：<input type="text" id="width"></input></br>
+      间距(最大间距为20)： <input type="text" id="interval"></input></br>
+      刷新速度：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="interval_time"></input></br>
+      <button id="modify" type="button" onclick="change_size()">
+	Modify
+      </button>
+    </div>
+    <div style = "margin-left:30px;">
+      <button id="random" type="button" onclick="rand_canvas()">
+	Random
+      </button>
+      <button id="Start" type="button" onclick="start_update()">
+	Start
+      </button>
+      <button id="Stop" type="button" onclick="stop_update()">
+	Stop
+      </button>
+      <button id="Clear" type="button" onclick="clear_update()">
+	Clear
+      </button>
+    </div>
+    <script type="text/javascript" src="canvas.js"></script>
+    <script type="text/javascript">
+      init_canvas();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Game of Life</title>
+    <link rel="stylesheet" href="life_game.css" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.15.0.css" type="text/css" media="screen">
+    <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.15.0.js"></script>
+    <script type="text/javascript" src="jquery-1.11.1.js"></script>
+  </head>
+  <body>    
+    <canvas id="main_canvas" height="500" width="500"  style="margin:30px;" onclick="click_canvas(event)"></canvas>    
+    <div style = "margin-left:30px;">
+      高度(最大高度为100)：<input type="text" id="height"></input></br>
+      宽度(最大宽度为100)：<input type="text" id="width"></input></br>
+      间距(最大间距为20)： <input type="text" id="interval"></input></br>
+      刷新速度：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="interval_time"></input></br>
+      <button id="modify" type="button" onclick="change_size()">
+	Modify
+      </button>
+    </div>
+    <div style = "margin-left:30px;">
+      <button id="random" type="button" onclick="rand_canvas()">
+	Random
+      </button>
+      <button id="Start" type="button" onclick="start_update()">
+	Start
+      </button>
+      <button id="Stop" type="button" onclick="stop_update()">
+	Stop
+      </button>
+      <button id="Clear" type="button" onclick="clear_update()">
+	Clear
+      </button>
+    </div>
+    <script type="text/javascript" src="canvas.js"></script>
+    <script type="text/javascript">
+      init_canvas();
+    </script>
+    <div id="qunit" style = "margin:10px"></div>
+    <div id="qunit-fixture" style = "margin:10px"></div>
+    <script>
+      //每个细胞周围的活细胞数目决定了该细胞下一代的存活状态，根据数目分类测试
+      module('逻辑测试(活细胞)');  
+      clear_update();
+      test('逻辑功能测试', function() {
+          for (i = 0; i < 9; i++) {
+              var flag = null;
+              var j = 0;
+              var k = 0;
+              var fl = 0;
+              condition[10][10] = 1;
+              for (j = -1; j <= 1; j++) {
+                  if (fl == i) {
+                      break;
+                  }
+                  for(k = -1; k <= 1; k++) {
+                      if (fl == i) {
+                          break;
+                      }
+                      if (k == 0 && j == 0) {
+                          continue;
+                      } 
+                      condition[10 + j][10 + k] = 1;
+                      fl++;
+                  }
+              }
+              var after_flag = update_cell(10, 10);
+              switch (i) {
+              case 2:
+              case 3:
+                  if (after_flag == 1) {
+                      flag = true;
+                  } else {
+                      flag = false;
+                  }
+                  break;
+              default:
+                  if (after_flag == 1) {
+                      flag = false;
+                  } else {
+                      flag = true;
+                  }
+                  break;
+              }
+              if (flag == true) {
+                  ok(flag, "逻辑正确");
+              }
+              if (flag == false) {
+                  ok(flag, "逻辑错误");
+              }
+              for (j = -1; j <= 1; j++) {
+                  for (k = -1; k <= 1; k++) {              
+                      condition[10 + j][10 + k] = 0;              
+                  }
+              } 
+          }   
+      });
+         
+      module('逻辑测试(死细胞)'); 
+      test( '逻辑功能测试', function() {
+          for (i = 0; i　< 9; i++) {     
+              var flag = null;
+              var j = 0;
+              var k = 0;
+              var fl = 0;
+              condition[10][10] = 0;
+              for (j = -1; j <= 1; j++) {
+                  if (fl == i) {
+                      break;
+                  }
+                  for(k = -1; k <= 1; k++) {
+                      if (fl == i) {
+                          break;
+                      }
+                      if (k == 0 && j == 0) {
+                          continue;
+                      }  
+                      condition[10 + j][10 + k] = 1;
+                      fl++;
+                  }
+              } 
+          
+              var after_flag = update_cell(10, 10);
+              switch (i) {                        
+              case 3:
+                  if (after_flag == 1) {
+                      flag = true;
+                  } else {
+                      flag = false;
+                  }
+                  break;
+              default:
+                  if (after_flag == 1) {
+                      flag = false;
+                  } else {
+                      flag = true;
+                  }
+                  break;
+              }
+              if (flag == true) {
+                  ok(flag, "逻辑正确");
+              }
+              if (flag == false) {
+                  ok(flag, "逻辑错误");
+              }
+              for (j = -1; j <= 1; j++) {            
+                  for (k = -1; k <= 1; k++) {              
+                      condition[10 + j][10 + k] = 0;              
+                  }
+              }  
+          }   
+      });  
+      module('逻辑测试(边界测试_1)');       
+      test('逻辑功能测试', function() {
+          for (i = 0; i　< 9; i++) {     
+              var flag = null;
+              var j = 0;
+              var k = 0;
+              var fl = 0;
+              condition[10][0] = 0;
+              for (j = -1; j <= 1; j++) {
+                  if (fl == i) {
+                      break;
+                  }
+                  for (k = -1; k <= 1; k++) {
+                      if (fl == i) {
+                          break;
+                      }
+                      if (k == 0 && j == 0) {
+                          continue;
+                      } 
+                      var x = 10 +　j;
+                      var y = k;                            
+                      if (k < 0) {
+                          y = k + 100;
+                      }
+                      condition[x][y] =  1;
+                      fl++;
+                  }
+              } 
+          
+              var after_flag = update_cell(10, 0);
+              switch (i) {                        
+              case 3:
+                  if (after_flag == 1) {
+                      flag = true;
+                  } else {
+                      flag = false;
+                  }
+                  break;
+              default:
+                  if (after_flag == 1) {
+                      flag = false;
+                  } else {
+                      flag = true;
+                  }
+                  break;
+              }
+              if (flag == true) {
+                  ok(flag, "逻辑正确");
+              }
+              if (flag == false) {
+                  ok(flag, "逻辑错误");
+              }
+              for (j = -1; j <= 1; j++) {            
+                  for (k = -1; k <= 1; k++) {              
+                      var x = 10 +　j;
+                      var y = k;                            
+                      if (k < 0) {
+                          y = k + 100;
+                      }
+                      condition[x][y] = 0;             
+                  }
+              }
+          }  
+      });
+      module('逻辑测试(边界测试_2)');       
+      test('逻辑功能测试', function() {
+          for (i = 0; i　< 9; i++) {     
+              var flag = null;
+              var j = 0;
+              var k = 0;
+              var fl = 0;
+              condition[99][0] = 0;
+              for (j = -1; j <= 1; j++) {
+                  if (fl == i) {
+                      break;
+                  }
+                  for(k = -1; k <= 1; k++) {
+                      if (fl == i) {
+                          break;
+                      }
+                      if (k == 0 && j == 0) {
+                          continue;
+                      } 
+                      var x = 99 +　j;
+                      var y = k;                            
+                      if (k < 0) {
+                          y = k + 100;
+                      }
+                      if (j > 0) {
+                          x = x - 100;
+                      }
+                      condition[x][y] =  1;
+                      fl++;
+                  }
+              } 
+          
+              var after_flag = update_cell(99, 0);
+              switch (i) {                        
+              case 3:
+                  if (after_flag == 1) {
+                      flag = true;
+                  } else {
+                      flag = false;
+                  }
+                  break;
+              default:
+                  if (after_flag == 1) {
+                      flag = false;
+                  } else {
+                      flag = true;
+                  }
+                  break;
+              }
+              if (flag == true) {
+                  ok(flag, "逻辑正确");
+              }
+              if (flag == false) {
+                  ok(flag, "逻辑错误");
+              }
+              for (j = -1; j <= 1; j++) {            
+                  for (k = -1; k <= 1; k++) {              
+                      var x = 99 +　j;
+                      var y = k;                            
+                      if (k < 0) {
+                          y = k + 100;
+                      }
+                      if (j > 0) {
+                          x = x - 100;
+                      }
+                      condition[x][y] = 0;             
+                  }
+              }
+          }   
+      });  
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+@-webkit-keyframes greenPulse {
+  from { background-color: rgb(40, 19, 97); -webkit-box-shadow: 0 0 9px rgb(14, 12, 67); }
+  50% { background-color: rgb(77, 64, 59); -webkit-box-shadow: 0 0 18px rgb(80, 55, 55); }
+  to { background-color: rgb(40, 19, 97); -webkit-box-shadow: 0 0 9px rgb(14, 14, 67); }
+}
+@-moz-keyframes greenPulse {
+  from { background-color: rgb(40, 19, 97); -moz-box-shadow: 0 0 9px rgb(14, 12, 67); }
+  50% { background-color: rgb(77, 64, 59); -moz-box-shadow: 0 0 18px rgb(80, 55, 55); }
+  to { background-color: rgb(40, 19, 97); -moz-box-shadow: 0 0 9px rgb(14, 14, 67); }
+}
+
+button {
+    -webkit-animation-name: greenPulse;
+    -webkit-animation-duration: 4s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-name: greenPulse;
+    -moz-animation-duration: 4s;
+    -moz-animation-iteration-count: infinite;
+    width: 100px;
+    height: 20px;
+    font-size: 0.6em;
+    color: white;
+    font-family: "microsoft Yahei";
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 12px;
+    cursor:pointer;
+}
+body {background-color:#ffffff;}
