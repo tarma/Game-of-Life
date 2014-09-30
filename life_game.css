@@ -1,12 +1,12 @@
 @-webkit-keyframes greenPulse {
-  from { background-color: rgb(40, 19, 97); -webkit-box-shadow: 0 0 9px rgb(14, 12, 67); }
-  50% { background-color: rgb(77, 64, 59); -webkit-box-shadow: 0 0 18px rgb(80, 55, 55); }
-  to { background-color: rgb(40, 19, 97); -webkit-box-shadow: 0 0 9px rgb(14, 14, 67); }
+    from { background-color: rgb(40, 19, 97); -webkit-box-shadow: 0 0 9px rgb(14, 12, 67); }
+    50% { background-color: rgb(77, 64, 59); -webkit-box-shadow: 0 0 18px rgb(80, 55, 55); }
+    to { background-color: rgb(40, 19, 97); -webkit-box-shadow: 0 0 9px rgb(14, 14, 67); }
 }
 @-moz-keyframes greenPulse {
-  from { background-color: rgb(40, 19, 97); -moz-box-shadow: 0 0 9px rgb(14, 12, 67); }
-  50% { background-color: rgb(77, 64, 59); -moz-box-shadow: 0 0 18px rgb(80, 55, 55); }
-  to { background-color: rgb(40, 19, 97); -moz-box-shadow: 0 0 9px rgb(14, 14, 67); }
+    from { background-color: rgb(40, 19, 97); -moz-box-shadow: 0 0 9px rgb(14, 12, 67); }
+    50% { background-color: rgb(77, 64, 59); -moz-box-shadow: 0 0 18px rgb(80, 55, 55); }
+    to { background-color: rgb(40, 19, 97); -moz-box-shadow: 0 0 9px rgb(14, 14, 67); }
 }
 
 button {
@@ -26,4 +26,7 @@ button {
     border-radius: 12px;
     cursor:pointer;
 }
-body {background-color:#ffffff;}
+
+body {
+    background-color:#ffffff;
+}

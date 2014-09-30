@@ -145,8 +145,10 @@ function clear_update(){
 // Process the event of clicking the canvas.
 function click_canvas(e) {
     if (!running_status) {
-	var x = parseInt((e.pageX - 40) / interval);
-	var y = parseInt((e.pageY - 40) / interval);
+	var canvas_rect = c.getBoundingClientRect();
+	var body_rect = document.body.getBoundingClientRect();
+	var x = parseInt((e.pageX - 8 - canvas_rect.left + body_rect.left) / interval);
+	var y = parseInt((e.pageY - 8 - canvas_rect.top + body_rect.top) / interval);
 	if (condition[x][y]) {
 	    condition[x][y] = 0;
 	    cxt.clearRect(x * interval, y * interval, interval, interval);
