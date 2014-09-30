@@ -85,18 +85,34 @@ function update_canvas() {
 
 // Modify the size of canvas and the changing time.
 function change_size() {
-    height = parseInt(document.getElementById("height").value);
-    width = parseInt(document.getElementById("width").value);
-    if (height > 100) { 
+    var temp;
+    temp = parseInt(document.getElementById("height").value);
+    if (temp > 0 && temp <= 100) {
+	height = temp;
+    } else {
 	height = 100;
     }
-    if (width > 100) {
+    temp = parseInt(document.getElementById("width").value);
+    if (temp > 0 && temp <= 100) {
+	width = temp;
+    } else {
 	width = 100;
     }
-    interval = parseInt(document.getElementById("interval").value);
-    interval_time = parseInt(document.getElementById("interval_time").value);
-    if (interval > 20) {
-	interval = 20;
+    temp = parseInt(document.getElementById("interval").value);
+    if (temp > 0) {
+	if (temp <= 20) {
+	    interval = temp;
+	} else {
+	    interval = 20;
+	}
+    } else {
+	interval = 5;
+    }
+    temp = parseInt(document.getElementById("interval_time").value);
+    if (temp > 0) {
+	interval_time = temp;
+    } else {
+	interval_time = 500;
     }
     c.height = height * interval;
     c.width = width * interval;
